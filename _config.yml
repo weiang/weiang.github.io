@@ -1,0 +1,78 @@
+title:            WeiAng's homepage 
+description:      WeiAng's homepage 
+# Your site's domain goes here. Leave localhost server or blank when working locally.
+#url:              http://localhost:4000
+url:               https://weiang.github.com
+#url:               http://home.ustc.edu.cn/~weiang
+disqus_shortname: 
+
+# Owner/author information
+owner:
+  name:           Wei Ang
+  avatar:         bio-photo.jpg
+  bio:            "Just do it!"
+  email:          weiang@mail.ustc.edu.cn
+  # Social networking links are used in author-bio sidebar. Update and remove as you like.
+  twitter:          
+  facebook: 527550265@qq.com      
+  github:   weiang
+  stackoverflow: 
+  linkedin:       
+  instagram:      
+  lastfm:         
+  tumblr: 
+  pinterest: 
+  foursquare: 
+  steam: 
+  dribbble: 
+  # For Google Authorship https://plus.google.com/authorship
+  google_plus:  weiang123@gmail.com
+
+# Analytics and webmaster tools stuff goes here
+google_analytics:   
+google_verify:      
+# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
+bing_verify:        
+
+# Links to include in top navigation
+# For external links add external: true
+links:
+  - title: Home 
+    url: /
+  - title: Posts
+    url: /posts/
+  - title: My Work
+    url: /my-work/
+  - title: hobbies
+    url: /hobbies/
+  - title: theme-setup
+    url: /theme-setup/
+  - title: Made Mistakes
+    url: http://mademistakes.com
+    external: true
+
+# http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone:    Asia/Shanghai 
+future:      true
+pygments:    true
+markdown:    kramdown
+
+# https://github.com/mojombo/jekyll/wiki/Permalinks
+permalink:   /:categories/:title/
+
+kramdown:
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  use_coderay: false
+
+  coderay:
+    coderay_line_numbers: 
+    coderay_line_numbers_start: 1
+    coderay_tab_width: 4
+    coderay_bold_every: 10
+    coderay_css: class
+
+include: [".htaccess"]
+exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules"]
