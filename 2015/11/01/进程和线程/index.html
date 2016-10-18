@@ -1,0 +1,603 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="多线程,POSIX," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="进程，线程简介计算机是完成特定任务的工具，我们把特定的任务称为task。最早的计算机是单task系统，需要手动装载，启动task的程序，所有的资源由该task独占，一个task完成后才能启动下一个task。操作系统的一个重要功能是管理task，为task分配系统资源。进程是操作系统分配资源和调度task的基本单位。
+进程是一个具有一定独特功能的程序在一个数据集合上的一次动态执行。进程由代码块（静态">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进程和线程">
+<meta property="og:url" content="http://yoursite.com/2015/11/01/进程和线程/index.html">
+<meta property="og:site_name" content="Wang">
+<meta property="og:description" content="进程，线程简介计算机是完成特定任务的工具，我们把特定的任务称为task。最早的计算机是单task系统，需要手动装载，启动task的程序，所有的资源由该task独占，一个task完成后才能启动下一个task。操作系统的一个重要功能是管理task，为task分配系统资源。进程是操作系统分配资源和调度task的基本单位。
+进程是一个具有一定独特功能的程序在一个数据集合上的一次动态执行。进程由代码块（静态">
+<meta property="og:updated_time" content="2016-10-18T08:12:04.067Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="进程和线程">
+<meta name="twitter:description" content="进程，线程简介计算机是完成特定任务的工具，我们把特定的任务称为task。最早的计算机是单task系统，需要手动装载，启动task的程序，所有的资源由该task独占，一个task完成后才能启动下一个task。操作系统的一个重要功能是管理task，为task分配系统资源。进程是操作系统分配资源和调度task的基本单位。
+进程是一个具有一定独特功能的程序在一个数据集合上的一次动态执行。进程由代码块（静态">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/11/01/进程和线程/"/>
+
+
+  <title> 进程和线程 | Wang </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Wang</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                进程和线程
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-11-01T00:00:00+08:00" content="2015-11-01">
+              2015-11-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Technology/" itemprop="url" rel="index">
+                    <span itemprop="name">Technology</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="进程，线程简介"><a href="#进程，线程简介" class="headerlink" title="进程，线程简介"></a>进程，线程简介</h1><p>计算机是完成特定任务的工具，我们把特定的任务称为task。最早的计算机是单task系统，需要手动装载，启动task的程序，所有的资源由该task独占，一个task完成后才能启动下一个task。操作系统的一个重要功能是管理task，为task分配系统资源。进程是操作系统分配资源和调度task的基本单位。</p>
+<p>进程是一个具有一定独特功能的程序在一个数据集合上的一次动态执行。进程由代码块（静态，二进制），数据集，进程控制块（动态）三部分组成。进程概念的引入是为了便于理解操作系统对task管理。进程是操作系统为task分配系统资源的基本单位，也是task调度的基本单位。</p>
+<p>线程是CPU计算流的抽象，一般认为它由程序计数器（PC），栈和寄存器组构成。从操作系统的角度来看，线程使资源和计算流分离，多个线程可以共享系统资源，实现了系统资源（内存，文件，信号）的高效利用。同时，这种共享也实现了计算流之间更高效的交互，实现更高的并行和并发度。</p>
+<h1 id="POSIX的使用"><a href="#POSIX的使用" class="headerlink" title="POSIX的使用"></a>POSIX的使用</h1><h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// demo.c</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="comment">// control the access of shared_resource</span></div><div class="line"><span class="keyword">pthread_mutex_t</span> resource_mutex;</div><div class="line"><span class="keyword">pthread_cond_t</span> resource_cond;</div><div class="line"></div><div class="line"><span class="keyword">int</span> shared_resource = <span class="number">0</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span>* <span class="title">thread_worker1</span><span class="params">(<span class="keyword">void</span>* args)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">pthread_t</span>* ptid = (<span class="keyword">pthread_t</span>*) <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(*ptid));</div><div class="line">    <span class="keyword">pid_t</span> pid = *(<span class="keyword">pid_t</span>*)args;</div><div class="line"></div><div class="line">    <span class="comment">// get thread id</span></div><div class="line">    *ptid = pthread_self();</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"thread %d start, created by process %d\n"</span>, *ptid, pid);  </div><div class="line"></div><div class="line">    <span class="comment">// wait for certain condition to happen: shared_resource == 1</span></div><div class="line">    pthread_mutex_lock(&amp;resource_mutex);</div><div class="line">    <span class="keyword">while</span> (shared_resource != <span class="number">1</span>) &#123;</div><div class="line">        pthread_cond_wait(&amp;resource_cond, &amp;resource_mutex);</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"thread %d access shared_resource: %d\n"</span>, *ptid, shared_resource);</div><div class="line">    pthread_mutex_unlock(&amp;resource_mutex);</div><div class="line"></div><div class="line">    <span class="comment">// thread exit</span></div><div class="line">    pthread_exit(ptid);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span>* <span class="title">thread_worker2</span><span class="params">(<span class="keyword">void</span>* args)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">pthread_t</span>* ptid = (<span class="keyword">pthread_t</span>*) <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(*ptid));</div><div class="line">    <span class="keyword">pid_t</span> pid = *(<span class="keyword">pid_t</span>*)args;</div><div class="line"></div><div class="line">    <span class="comment">// get thread id</span></div><div class="line">    <span class="keyword">pthread_t</span> tid = pthread_self();</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"thread %d start, created by process %d\n"</span>, *ptid, pid);  </div><div class="line"></div><div class="line">    <span class="comment">// access shared resource </span></div><div class="line">    pthread_mutex_lock(&amp;resource_mutex);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"thread %d access shared_resource: %d\n"</span>, *ptid, shared_resource);</div><div class="line">    shared_resource = <span class="number">1</span>;</div><div class="line">    pthread_mutex_unlock(&amp;resource_mutex);</div><div class="line"></div><div class="line">    <span class="comment">// wake up thread who is waitting on resource_cond </span></div><div class="line">    pthread_cond_signal(&amp;resource_cond);</div><div class="line"></div><div class="line">    pthread_exit(<span class="literal">NULL</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">pthread_t</span> tid1, tid2;</div><div class="line"></div><div class="line">    <span class="comment">// initialize mutex and condition variables</span></div><div class="line">    pthread_mutex_init(&amp;resource_mutex, <span class="literal">NULL</span>);</div><div class="line">    pthread_cond_init(&amp;resource_cond, <span class="literal">NULL</span>);</div><div class="line"></div><div class="line">    <span class="keyword">pid_t</span> pid = getpid();</div><div class="line">    <span class="comment">// create work threads</span></div><div class="line">    pthread_create(&amp;tid1, <span class="literal">NULL</span>, thread_worker1, (<span class="keyword">void</span>*)&amp;pid); </div><div class="line">    pthread_create(&amp;tid2, <span class="literal">NULL</span>, thread_worker2, (<span class="keyword">void</span>*)&amp;pid); </div><div class="line"></div><div class="line">    <span class="comment">// wait for thread to join</span></div><div class="line">    <span class="keyword">pthread_t</span>* result;</div><div class="line">    pthread_join(tid1, (<span class="keyword">void</span>*)&amp;result);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d return by thread %d\n"</span>, *result, tid1); </div><div class="line">    <span class="built_in">free</span>(result);</div><div class="line">    pthread_join(tid2, <span class="literal">NULL</span>);</div><div class="line"></div><div class="line">    <span class="comment">// destory mutex and condition variables</span></div><div class="line">    pthread_mutex_destroy(&amp;resource_mutex);</div><div class="line">    pthread_cond_destroy(&amp;resource_cond);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="互斥锁"><a href="#互斥锁" class="headerlink" title="互斥锁"></a>互斥锁</h2><p>互斥锁是为了保证在同一时刻只有一个线程操作（读写）共享资源。POSIX API有以下几个：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 声明互斥锁</div><div class="line"> **/</div><div class="line"><span class="keyword">pthread_mutex_t</span> mutex;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 初始化互斥锁</div><div class="line"> * 静态方法：pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;</div><div class="line"> * 动态方法：int pthread_mutex_init(pthread_mutex_t *,</div><div class="line"> *        const pthread_mutexattr_t *);</div><div class="line"> **/</div><div class="line">pthread_mutex_init(&amp;mutex, <span class="literal">NULL</span>);</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 获取锁</div><div class="line"> * int pthread_mutex_lock(pthread_mutex_t *);</div><div class="line"> **/</div><div class="line">pthread_mutex_lock(&amp;mutex);</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 释放锁	 </div><div class="line"> * int pthread_mutex_unlock(pthread_mutex_t *);</div><div class="line"> **/</div><div class="line">pthread_mutex_unlock(&amp;mutex);</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 尝试获取锁，失败时不阻塞</div><div class="line"> * int pthread_mutex_trylock(pthread_mutex_t *);</div><div class="line"> **/</div><div class="line">pthread_mutex_trylock(&amp;mutex);</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 销毁锁</div><div class="line"> * int pthread_mutex_destroy(pthread_mutex_t);</div><div class="line"> **/</div><div class="line">pthread_mutex_destroy(&amp;mutex);</div></pre></td></tr></table></figure></p>
+<h2 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h2><p>条件变量用于同步，即在达到某种条件时线程才继续运行，否则挂起等待，直到满足条件后被唤醒。线程一般通过检查某个共享变量的值来确定是否要挂起等待，所以条件变量一般与互斥锁结合实现同步机制。条件变量相关的 POSIX API如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> status = <span class="number">0</span>;</div><div class="line"><span class="keyword">pthread_mutex_t</span> mutex = PTHREAD_MUTEX_INITIALIZER;</div><div class="line"><span class="keyword">pthread_mutex_t</span> cond;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 初始化</div><div class="line"> * 静态方法：pthread_cond_t cond = PTHREAD_COND_INITIALIZER;</div><div class="line"> * 动态方法：int pthread_cond_init(pthread_cond_t*);</div><div class="line"> ** /</div><div class="line"> pthread_cond_init(&amp;cond);</div><div class="line"></div><div class="line"> pthread_mutex_lock(&amp;mutex);</div><div class="line"> while (status != 1) &#123;</div><div class="line">/**</div><div class="line"> * 挂起等待，如果条件不成立</div><div class="line"> * int pthread_cond_wait(pthread_cond_t*, pthread_mutex_t*);</div><div class="line"> ** /</div><div class="line"> pthread_cond_wait(&amp;cond, &amp;mutex);</div><div class="line"> &#125;</div><div class="line"> pthread_mutex_unlock(&amp;mutex);</div><div class="line"></div><div class="line">/**</div><div class="line"> * 唤醒等待线程</div><div class="line"> * 全部线程：int pthread_cond_broadcast(pthread_cond_t*);</div><div class="line"> * 单个线程：int pthread_cond_signal(pthread_cond_t*);</div><div class="line"> **/</div><div class="line">pthread_cond_signal(&amp;cond);</div><div class="line">pthread_cond_broadcast(&amp;cond);</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 销毁</div><div class="line"> * int pthread_cond_destroy(pthread_cond_t*);</div><div class="line"> **/</div><div class="line">pthread_cond_destroy(&amp;cond);</div><div class="line"></div><div class="line">ptread_mutex_destroy(&amp;mutex);</div></pre></td></tr></table></figure></p>
+<p>这里需要主要的是，一个条件变量同一时刻只能与一个互斥量配套使用，而一个互斥量可以同时与多个条件变量对应。</p>
+<h1 id="线程模型"><a href="#线程模型" class="headerlink" title="线程模型"></a>线程模型</h1><p>逻辑上，一个进程对应一组线程，这是一个典型的一对多的模型。但是从实现上，又有几种不同的模型，常见的有一对一，一对多，多对多几种。</p>
+<p>在介绍线程模型前，必须清楚两个概念：用户级线程(ULT)和内核级线程(KLT)。ULT，顾名思义，运行于用户态的线程，对操作系统的内核是不可见的，用户自行管理线程的调度。内核级线程，运行于内核态的线程，内核可见，内核参与线程调度。</p>
+<h2 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h2><p>一个KLT对应一个ULT，早期的POSIX实现版本Linux Threads就是根据这个模型实现的。它利用Linux的轻量级进程(LWP,通过clone()系统调用)实现不同进程间的资源共享。有专门的管理线程负责线程调度。</p>
+<h2 id="多对一"><a href="#多对一" class="headerlink" title="多对一"></a>多对一</h2><p>一个KLT对应多个ULT。缺点是：如果一个线程在系统调用上阻塞，整个进程阻塞。</p>
+<h2 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h2><p>多个KLT对应多个ULT，一对一和一对多的结合，实现更高的并行性。IBM的NGPT是基于这一模型实现的。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/多线程/" rel="tag">#多线程</a>
+          
+            <a href="/tags/POSIX/" rel="tag">#POSIX</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/07/C和C++中的lvalue/" rel="next" title="C和C++中的lvalue">
+                <i class="fa fa-chevron-left"></i> C和C++中的lvalue
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/18/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Wei Ang" />
+          <p class="site-author-name" itemprop="name">Wei Ang</p>
+          <p class="site-description motion-element" itemprop="description">本来无一物，何处惹尘埃</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进程，线程简介"><span class="nav-number">1.</span> <span class="nav-text">进程，线程简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POSIX的使用"><span class="nav-number">2.</span> <span class="nav-text">POSIX的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#demo"><span class="nav-number">2.1.</span> <span class="nav-text">demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互斥锁"><span class="nav-number">2.2.</span> <span class="nav-text">互斥锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件变量"><span class="nav-number">2.3.</span> <span class="nav-text">条件变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程模型"><span class="nav-number">3.</span> <span class="nav-text">线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一对一"><span class="nav-number">3.1.</span> <span class="nav-text">一对一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多对一"><span class="nav-number">3.2.</span> <span class="nav-text">多对一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多对多"><span class="nav-number">3.3.</span> <span class="nav-text">多对多</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Ang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,758 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Ruby," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="什么是变量作用域(variable scope)  作用域定义了一个变量在程序中的可访问范围。Ruby中有四种类型的变量作用域：局部(local),全局(global),实例(instance)和类(class)。通过在变量名前加上不同的特殊字符来声明不同的变量类型。如下表：
+
+
+
+变量名前缀
+作用域
+
+
+
+
+$
+全局变量
+
+
+@
+实例变量
+
+
+[a-z]或_
+局部变量
+
+
+[A-Z]
+常量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ruby中变量的作用域">
+<meta property="og:url" content="http://yoursite.com/2013/12/30/Ruby中变量的作用域/index.html">
+<meta property="og:site_name" content="Wang">
+<meta property="og:description" content="什么是变量作用域(variable scope)  作用域定义了一个变量在程序中的可访问范围。Ruby中有四种类型的变量作用域：局部(local),全局(global),实例(instance)和类(class)。通过在变量名前加上不同的特殊字符来声明不同的变量类型。如下表：
+
+
+
+变量名前缀
+作用域
+
+
+
+
+$
+全局变量
+
+
+@
+实例变量
+
+
+[a-z]或_
+局部变量
+
+
+[A-Z]
+常量">
+<meta property="og:updated_time" content="2016-10-18T07:27:54.687Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ruby中变量的作用域">
+<meta name="twitter:description" content="什么是变量作用域(variable scope)  作用域定义了一个变量在程序中的可访问范围。Ruby中有四种类型的变量作用域：局部(local),全局(global),实例(instance)和类(class)。通过在变量名前加上不同的特殊字符来声明不同的变量类型。如下表：
+
+
+
+变量名前缀
+作用域
+
+
+
+
+$
+全局变量
+
+
+@
+实例变量
+
+
+[a-z]或_
+局部变量
+
+
+[A-Z]
+常量">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2013/12/30/Ruby中变量的作用域/"/>
+
+
+  <title> Ruby中变量的作用域 | Wang </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Wang</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Ruby中变量的作用域
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-12-30T00:00:00+08:00" content="2013-12-30">
+              2013-12-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Technology/" itemprop="url" rel="index">
+                    <span itemprop="name">Technology</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="什么是变量作用域-variable-scope"><a href="#什么是变量作用域-variable-scope" class="headerlink" title="什么是变量作用域(variable scope)"></a>什么是变量作用域(variable scope)</h1><p>  作用域定义了一个变量在程序中的可访问范围。Ruby中有四种类型的变量作用域：<em>局部(local),全局(global),实例(instance)和类(class)</em>。通过在变量名前加上不同的特殊字符来声明不同的变量类型。如下表：</p>
+<table>
+<thead>
+<tr>
+<th>变量名前缀</th>
+<th>作用域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$</td>
+<td>全局变量</td>
+</tr>
+<tr>
+<td>@</td>
+<td>实例变量</td>
+</tr>
+<tr>
+<td>[a-z]或_</td>
+<td>局部变量</td>
+</tr>
+<tr>
+<td>[A-Z]</td>
+<td>常量</td>
+</tr>
+<tr>
+<td>@@</td>
+<td>类变量</td>
+</tr>
+</tbody>
+</table>
+<p>  除此之外，Ruby还有两个不能被赋值的<em>伪变量(pseudo-variables)</em>，<em>nil</em>和<em>self</em>。<em>nil</em>用来表示未初始化的变量，<em>self</em>用来引用正在执行的对象。</p>
+<h1 id="检查Ruby中的变量作用域"><a href="#检查Ruby中的变量作用域" class="headerlink" title="检查Ruby中的变量作用域"></a>检查Ruby中的变量作用域</h1><p>通过观察变量名可以区分不同变量的作用域。但有些时候需要通过编程的方式来获得一个变量的作用域。Ruby提供了一个有效的函数<em>define?</em>来达到这个目的。<em>define?</em>函数返回被引用变量的作用域。如果变量在当前上下文(current context)中没用被定义，则<em>define?</em>返回<em>nil</em>。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">x = <span class="number">10</span></div><div class="line">=&gt; <span class="number">10</span></div><div class="line"><span class="keyword">defined</span>? x</div><div class="line">=&gt; <span class="string">"local-variable"</span></div><div class="line"></div><div class="line">$x = <span class="number">10</span></div><div class="line">=&gt; <span class="number">10</span></div><div class="line"><span class="keyword">defined</span>? $x</div><div class="line">=&gt; <span class="string">"global-variable"</span></div></pre></td></tr></table></figure></p>
+<h1 id="Ruby局部变量-local-variables"><a href="#Ruby局部变量-local-variables" class="headerlink" title="Ruby局部变量(local variables)"></a>Ruby局部变量(local variables)</h1><p>局部变量只在声明它的代码结构中可以被存取。例如，在方法(method)或循环结构(loop)中声明的变量不可以从该结构之外存取。局部变量名必须以小写字母或’_’开头。例如：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">loopcounter = <span class="number">10</span></div><div class="line">_LoopCounter = <span class="number">20</span></div></pre></td></tr></table></figure></p>
+<h1 id="Ruby全局变量-global-variables"><a href="#Ruby全局变量-global-variables" class="headerlink" title="Ruby全局变量(global variables)"></a>Ruby全局变量(global variables)</h1><p>全局变量可在任何地方被存取，即使在全局变量被声明之前。全局变量名必须以’$’为前缀。例如：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$welcone = <span class="string">"Welcone to Ruby Essentials"</span></div></pre></td></tr></table></figure></p>
+<p>但使用全局变量是不被鼓励的。全局变量的问题在于：不仅它在代码的任何地方可见，而且它可以在代码的任何地方被修改。这会使得追踪’bugs’变得非常困难。<br>但是，了解一些Ruby预定义的全局变量是大有好处的。这些全局变量可以帮助Ruby开发者了解当前的Ruby开发环境。这里有张关于这些全局变量的简要总结：</p>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>变量值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$@</td>
+<td>最近发生错误的位置</td>
+</tr>
+<tr>
+<td>$_</td>
+<td>上一次被gets读取的字符串</td>
+</tr>
+<tr>
+<td>$.</td>
+<td>解释器上一次读取的行号</td>
+</tr>
+<tr>
+<td>$&amp;</td>
+<td>上一次被regexp匹配的字符串</td>
+</tr>
+<tr>
+<td>$~</td>
+<td>上一次作为字表达式数组匹配的regexp</td>
+</tr>
+<tr>
+<td>$n</td>
+<td>上一次匹配中的第n个子表达式(等同于$~[n])</td>
+</tr>
+<tr>
+<td>$=</td>
+<td>大小写无关标志</td>
+</tr>
+<tr>
+<td>$/</td>
+<td>输入记录分割符</td>
+</tr>
+<tr>
+<td>$\</td>
+<td>输出记录分割符</td>
+</tr>
+<tr>
+<td>$0</td>
+<td>正在执行的Ruby脚本名</td>
+</tr>
+<tr>
+<td>$*</td>
+<td>调用脚本是的命令行参数</td>
+</tr>
+<tr>
+<td>$$</td>
+<td>Ruby解释器的pid(进程号)</td>
+</tr>
+<tr>
+<td>$?</td>
+<td>上一个执行子进程的退出状态</td>
+</tr>
+</tbody>
+</table>
+<p>例如，执行<em>gets</em>方法来从键盘获取输入，再用$_变量来提取从键盘键入的值：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">irb(main):005:0&gt;</span>gets</div><div class="line">hello</div><div class="line">=&gt; <span class="string">"hello\n"</span></div><div class="line"><span class="meta">irb(main):006:0&gt;</span>$_</div><div class="line">=&gt; <span class="string">"hello\n"</span></div></pre></td></tr></table></figure></p>
+<p>当然也可以获得Ruby解释器的进程号：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">irb(main):007:0&gt;</span>$$</div><div class="line">=&gt; <span class="number">17403</span></div></pre></td></tr></table></figure></p>
+<h1 id="Ruby类变量-class-variables"><a href="#Ruby类变量-class-variables" class="headerlink" title="Ruby类变量(class variables)"></a>Ruby类变量(class variables)</h1><p>类变量被该类所实例化的所有对象共享。这意味着只有一个变量存在，而这个变量为所有实例对象所共享。这也意味着一个对象对该变量的修改也会改变其他实例对象的该变量值。<br>另一种观点将类变量看成是一个单独类中的全局变量。类变量的声明必须以’@@’为前缀。类变量必须在创建时初始化。例如：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@@total = <span class="number">0</span></div></pre></td></tr></table></figure></p>
+<h1 id="Ruby实例变量-instance-variables"><a href="#Ruby实例变量-instance-variables" class="headerlink" title="Ruby实例变量(instance variables)"></a>Ruby实例变量(instance variables)</h1><p>实例变量和类变量很类似，只是实例变量为特定实例对象所私有。例如如果一个类包含一个实例变量，<em>@total</em>，如果一个实例对象改变了<em>@total</em>的值，这个改变只局限于改变这个变量的类实例对象中。其他的同类对象拥有自己私有的，独立于其他对象的对其改变的副本。<br>Ruby中实例变量以’@’为前缀：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@total = <span class="number">10</span></div></pre></td></tr></table></figure></p>
+<h1 id="Ruby常量变量-constant-variabes"><a href="#Ruby常量变量-constant-variabes" class="headerlink" title="Ruby常量变量(constant variabes)"></a>Ruby常量变量(constant variabes)</h1><p>Ruby中的常量是一旦被赋值后就不“应该”被改变的变量。但是Ruby不同于大多数编程语言，它允许常量在声明后依然可以被修改。Ruby解释器只是弹出一个警告信息来表示轻微的抗议。<br>声明在类或模块(module)中的常量可以在类或模块的上下文中的任何地方使用。声明在类和模块之外的常量具有全局作用域。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Ruby/" rel="tag">#Ruby</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/12/17/g++'s-two-stage-name-lookup/" rel="next" title="G++'s two-stage name lookup">
+                <i class="fa fa-chevron-left"></i> G++'s two-stage name lookup
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/02/10/国立台湾科技大学交换生活体会/" rel="prev" title="国立台湾科技大学交换生活体会">
+                国立台湾科技大学交换生活体会 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Wei Ang" />
+          <p class="site-author-name" itemprop="name">Wei Ang</p>
+          <p class="site-description motion-element" itemprop="description">本来无一物，何处惹尘埃</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是变量作用域-variable-scope"><span class="nav-number">1.</span> <span class="nav-text">什么是变量作用域(variable scope)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检查Ruby中的变量作用域"><span class="nav-number">2.</span> <span class="nav-text">检查Ruby中的变量作用域</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ruby局部变量-local-variables"><span class="nav-number">3.</span> <span class="nav-text">Ruby局部变量(local variables)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ruby全局变量-global-variables"><span class="nav-number">4.</span> <span class="nav-text">Ruby全局变量(global variables)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ruby类变量-class-variables"><span class="nav-number">5.</span> <span class="nav-text">Ruby类变量(class variables)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ruby实例变量-instance-variables"><span class="nav-number">6.</span> <span class="nav-text">Ruby实例变量(instance variables)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ruby常量变量-constant-variabes"><span class="nav-number">7.</span> <span class="nav-text">Ruby常量变量(constant variabes)</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Ang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
