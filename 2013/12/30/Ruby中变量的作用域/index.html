@@ -110,7 +110,7 @@ $
 常量">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ruby中变量的作用域">
-<meta property="og:url" content="http://yoursite.com/2013/12/30/Ruby中变量的作用域/index.html">
+<meta property="og:url" content="http://weiang.github.io/2013/12/30/Ruby中变量的作用域/index.html">
 <meta property="og:site_name" content="Wang">
 <meta property="og:description" content="什么是变量作用域(variable scope)  作用域定义了一个变量在程序中的可访问范围。Ruby中有四种类型的变量作用域：局部(local),全局(global),实例(instance)和类(class)。通过在变量名前加上不同的特殊字符来声明不同的变量类型。如下表：
 
@@ -136,7 +136,7 @@ $
 
 [A-Z]
 常量">
-<meta property="og:updated_time" content="2016-10-18T07:27:54.687Z">
+<meta property="og:updated_time" content="2016-10-18T11:35:09.936Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ruby中变量的作用域">
 <meta name="twitter:description" content="什么是变量作用域(variable scope)  作用域定义了一个变量在程序中的可访问范围。Ruby中有四种类型的变量作用域：局部(local),全局(global),实例(instance)和类(class)。通过在变量名前加上不同的特殊字符来声明不同的变量类型。如下表：
@@ -183,7 +183,7 @@ $
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2013/12/30/Ruby中变量的作用域/"/>
+  <link rel="canonical" href="http://weiang.github.io/2013/12/30/Ruby中变量的作用域/"/>
 
 
   <title> Ruby中变量的作用域 | Wang </title>
@@ -397,6 +397,7 @@ $
 </tbody>
 </table>
 <p>  除此之外，Ruby还有两个不能被赋值的<em>伪变量(pseudo-variables)</em>，<em>nil</em>和<em>self</em>。<em>nil</em>用来表示未初始化的变量，<em>self</em>用来引用正在执行的对象。</p>
+<a id="more"></a>
 <h1 id="检查Ruby中的变量作用域"><a href="#检查Ruby中的变量作用域" class="headerlink" title="检查Ruby中的变量作用域"></a>检查Ruby中的变量作用域</h1><p>通过观察变量名可以区分不同变量的作用域。但有些时候需要通过编程的方式来获得一个变量的作用域。Ruby提供了一个有效的函数<em>define?</em>来达到这个目的。<em>define?</em>函数返回被引用变量的作用域。如果变量在当前上下文(current context)中没用被定义，则<em>define?</em>返回<em>nil</em>。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">x = <span class="number">10</span></div><div class="line">=&gt; <span class="number">10</span></div><div class="line"><span class="keyword">defined</span>? x</div><div class="line">=&gt; <span class="string">"local-variable"</span></div><div class="line"></div><div class="line">$x = <span class="number">10</span></div><div class="line">=&gt; <span class="number">10</span></div><div class="line"><span class="keyword">defined</span>? $x</div><div class="line">=&gt; <span class="string">"global-variable"</span></div></pre></td></tr></table></figure></p>
 <h1 id="Ruby局部变量-local-variables"><a href="#Ruby局部变量-local-variables" class="headerlink" title="Ruby局部变量(local variables)"></a>Ruby局部变量(local variables)</h1><p>局部变量只在声明它的代码结构中可以被存取。例如，在方法(method)或循环结构(loop)中声明的变量不可以从该结构之外存取。局部变量名必须以小写字母或’_’开头。例如：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">loopcounter = <span class="number">10</span></div><div class="line">_LoopCounter = <span class="number">20</span></div></pre></td></tr></table></figure></p>
 <h1 id="Ruby全局变量-global-variables"><a href="#Ruby全局变量-global-variables" class="headerlink" title="Ruby全局变量(global variables)"></a>Ruby全局变量(global variables)</h1><p>全局变量可在任何地方被存取，即使在全局变量被声明之前。全局变量名必须以’$’为前缀。例如：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$welcone = <span class="string">"Welcone to Ruby Essentials"</span></div></pre></td></tr></table></figure></p>
@@ -594,7 +595,7 @@ $
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

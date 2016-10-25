@@ -88,11 +88,11 @@
 The C++ standard prescribes that all names that are not dependent on template parameters are bound to their present definitions when parsing a te">
 <meta property="og:type" content="article">
 <meta property="og:title" content="G++'s two-stage name lookup">
-<meta property="og:url" content="http://yoursite.com/2013/12/17/g++'s-two-stage-name-lookup/index.html">
+<meta property="og:url" content="http://weiang.github.io/2013/12/17/g++'s-two-stage-name-lookup/index.html">
 <meta property="og:site_name" content="Wang">
 <meta property="og:description" content="转自: http://gcc.gnu.org/onlinedocs/gcc/Name-lookup.html
 The C++ standard prescribes that all names that are not dependent on template parameters are bound to their present definitions when parsing a te">
-<meta property="og:updated_time" content="2016-10-18T07:29:03.940Z">
+<meta property="og:updated_time" content="2016-10-18T11:35:31.450Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="G++'s two-stage name lookup">
 <meta name="twitter:description" content="转自: http://gcc.gnu.org/onlinedocs/gcc/Name-lookup.html
@@ -117,7 +117,7 @@ The C++ standard prescribes that all names that are not dependent on template pa
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2013/12/17/g++'s-two-stage-name-lookup/"/>
+  <link rel="canonical" href="http://weiang.github.io/2013/12/17/g++'s-two-stage-name-lookup/"/>
 
 
   <title> G++'s two-stage name lookup | Wang </title>
@@ -301,6 +301,7 @@ The C++ standard prescribes that all names that are not dependent on template pa
       
         <p>转自: <a href="http://gcc.gnu.org/onlinedocs/gcc/Name-lookup.html" target="_blank" rel="external">http://gcc.gnu.org/onlinedocs/gcc/Name-lookup.html</a></p>
 <p>The C++ standard prescribes that all names that are not dependent on template parameters are bound to their present definitions when parsing a template function or class. Only names that are dependent are looked up at the point of instantiation. For example, consider<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">double</span>)</span></span>;</div><div class="line">     </div><div class="line"><span class="keyword">struct</span> A &#123;</div><div class="line">  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">f</span> <span class="params">()</span> </span>&#123;</div><div class="line">    foo (<span class="number">1</span>);        <span class="comment">// 1</span></div><div class="line">    <span class="keyword">int</span> i = N;      <span class="comment">// 2</span></div><div class="line">    T t;</div><div class="line">    t.bar();        <span class="comment">// 3</span></div><div class="line">    foo (t);        <span class="comment">// 4</span></div><div class="line">  &#125;</div><div class="line">     </div><div class="line">  <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> N;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>Here, the names foo and N appear in a context that does not depend on the type of T. The compiler will thus require that they are defined in the context of use in the template, not only before the point of instantiation, and will here use ::foo(double) and A::N, respectively. In particular, it will convert the integer value to a double when passing it to ::foo(double).</p>
 <p>Conversely, bar and the call to foo in the fourth marked line are used in contexts that do depend on the type of T, so they are only looked up at the point of instantiation, and you can provide declarations for them after declaring the template, but before instantiating it. In particular, if you instantiate A::f<int>, the last line will call an overloaded ::foo(int) if one was provided, even if after the declaration of struct A.</int></p>
 <p>This distinction between lookup of dependent and non-dependent names is called two-stage (or dependent) name lookup. G++ implements it since version 3.4.</p>
@@ -444,7 +445,7 @@ x.cc:6: error: (if you use `-fpermissive&apos;, G++ will accept your code, but
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

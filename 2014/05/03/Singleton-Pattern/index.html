@@ -90,13 +90,13 @@
 为什么需要Singleton模式定义类的唯一目的就是可以用它作为模板来创建对象,而利用Singleton模式实现的类只创建和维护一个对象,这是不是有违定义类的初衷?其实不然,多数情况下类存在的目">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Singleton Pattern">
-<meta property="og:url" content="http://yoursite.com/2014/05/03/Singleton-Pattern/index.html">
+<meta property="og:url" content="http://weiang.github.io/2014/05/03/Singleton-Pattern/index.html">
 <meta property="og:site_name" content="Wang">
 <meta property="og:description" content="Singleton Pattern  Ensure a class only has one instance and provide a global point of access to it.
 
 
 为什么需要Singleton模式定义类的唯一目的就是可以用它作为模板来创建对象,而利用Singleton模式实现的类只创建和维护一个对象,这是不是有违定义类的初衷?其实不然,多数情况下类存在的目">
-<meta property="og:updated_time" content="2016-10-18T07:49:47.617Z">
+<meta property="og:updated_time" content="2016-10-18T11:35:49.137Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Singleton Pattern">
 <meta name="twitter:description" content="Singleton Pattern  Ensure a class only has one instance and provide a global point of access to it.
@@ -123,7 +123,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2014/05/03/Singleton-Pattern/"/>
+  <link rel="canonical" href="http://weiang.github.io/2014/05/03/Singleton-Pattern/"/>
 
 
   <title> Singleton Pattern | Wang </title>
@@ -311,6 +311,7 @@
 <hr>
 <h1 id="为什么需要Singleton模式"><a href="#为什么需要Singleton模式" class="headerlink" title="为什么需要Singleton模式"></a>为什么需要Singleton模式</h1><p>定义类的唯一目的就是可以用它作为模板来创建对象,而利用Singleton模式实现的类只创建和维护一个对象,这是不是有违定义类的初衷?其实不然,多数情况下类存在的目的是以其为模板创建该类对象的实例,而某些特定的引用场合下,如果一个类存在多个实例对象可能会对系统产生负面影响,甚至导致错误的发生.如在针对操作系统线程池的应用中,如果系统中存在多个线程池显然是错误的.当然有时系统中存在多个对象并不发生错误,但可能占用过多的系统资源导致资源利用率不高,这些都不是我们期望发生的,所以在面向对象的编程中引入了Singleton模式来解决这些问题.</p>
 <hr>
+<a id="more"></a>
 <h1 id="单线程下的Singleton模式"><a href="#单线程下的Singleton模式" class="headerlink" title="单线程下的Singleton模式"></a>单线程下的Singleton模式</h1><p>在不考虑多线程的情况下,有一种简单直观的实现方式,如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton uniqueInstance;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (uniqueInstance == <span class="keyword">null</span>) &#123;</div><div class="line">            uniqueInstance = <span class="keyword">new</span> Singleton();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> uniqueInstance;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>这里有几点需要说明</p>
 <ol>
@@ -477,7 +478,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -89,12 +89,12 @@
 The name lvalue comes from the assignment expression E1 = E2 in which the left operand E1 must be a">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C和C++中的lvalue">
-<meta property="og:url" content="http://yoursite.com/2015/05/07/C和C++中的lvalue/index.html">
+<meta property="og:url" content="http://weiang.github.io/2015/05/07/C和C++中的lvalue/index.html">
 <meta property="og:site_name" content="Wang">
 <meta property="og:description" content="lvalue的来源lvalue的提出主要是为了判断赋值表达式的使用是否符合规范。关于lvalue，通常的理解为‘left value’，意指用在赋值表达式左侧的表达式。K&amp;amp;R中是这样描述的：
 
 The name lvalue comes from the assignment expression E1 = E2 in which the left operand E1 must be a">
-<meta property="og:updated_time" content="2016-10-18T09:10:34.066Z">
+<meta property="og:updated_time" content="2016-10-18T11:34:46.959Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C和C++中的lvalue">
 <meta name="twitter:description" content="lvalue的来源lvalue的提出主要是为了判断赋值表达式的使用是否符合规范。关于lvalue，通常的理解为‘left value’，意指用在赋值表达式左侧的表达式。K&amp;amp;R中是这样描述的：
@@ -120,7 +120,7 @@ The name lvalue comes from the assignment expression E1 = E2 in which the left o
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2015/05/07/C和C++中的lvalue/"/>
+  <link rel="canonical" href="http://weiang.github.io/2015/05/07/C和C++中的lvalue/"/>
 
 
   <title> C和C++中的lvalue | Wang </title>
@@ -313,6 +313,7 @@ The name lvalue comes from the assignment expression E1 = E2 in which the left o
 <p>这个定义可以用来判断哪些表达式是lvalue。即表达式表示的是一个在占有内存的对象时，这个表达式就是lvalue。</p>
 <p>那么问题来了，c语言中变量分为两类，一类值不可被修改（如常量变量，临时变量），另一类值可被修改。毫无疑问，常量变量是lvalue，但是它不能被赋值修改，它不能位于赋值表达式的左侧。所以<strong>K&amp;R</strong>中关于lvalue用于赋值表达式左侧的论述是不完全的，只有拥有可修改内存的lvalue才能用于赋值表达式的左侧。</p>
 <p>为了避免歧义，C99建议将<strong>lvalue</strong>理解为<em>locator value</em>，这样更加符合<strong>K&amp;R</strong>中关于<strong>lvalue</strong>的定义。同时将用于赋值表达式左侧的对象表达式成为<em>modifiable lvalue</em>，将用于赋值表达式右侧的值称为<strong>rvalue</strong>，意味表达式的值(value of an expression)。</p>
+<a id="more"></a>
 <h1 id="C-中的lvalue"><a href="#C-中的lvalue" class="headerlink" title="C++中的lvalue"></a>C++中的lvalue</h1><p>C++中的lvaue继承自c语言，但与c语言中关于lvalue的语义有很大不同。C++中引入了对象的move操作。这是一种将对象的值从一块内存移动到另外一块内存的操作。为了更好的判断对对象的move，赋值操作是否符合规范，C++中关于lvalue加入了新的语义。</p>
 <p>在判断针对对象的寻址，复制，move操作是否合法时，通常需要考虑被操作对象的两个性质：</p>
 <ul>
@@ -457,7 +458,7 @@ The name lvalue comes from the assignment expression E1 = E2 in which the left o
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
